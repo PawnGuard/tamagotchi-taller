@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+# firmware de MicroPython (flashear.sh lo descarga)
+ESP32_GENERIC_*.bin
+# videos convertidos: son de cada quien, no se suben al repo
+src/apartados/*_cuadros.bin
+*.mp4
+*.mov
