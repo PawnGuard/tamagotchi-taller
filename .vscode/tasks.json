@@ -1,0 +1,69 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Subir codigo",
+      "detail": "Copia src/ a la placa (Ctrl+Shift+B)",
+      "type": "process",
+      "command": "${command:python.interpreterPath}",
+      "args": ["herramientas/subir.py"],
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "Jugar",
+      "detail": "Corre tama.py en la placa. Ctrl+C solo cierra la conexion",
+      "type": "process",
+      "command": "${command:python.interpreterPath}",
+      "args": ["-m", "mpremote", "run", "src/tama.py"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Prueba de hardware",
+      "detail": "Corre prueba.py: pantalla, piezo y botones",
+      "type": "process",
+      "command": "${command:python.interpreterPath}",
+      "args": ["-m", "mpremote", "run", "src/prueba.py"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Consola de la placa (REPL)",
+      "detail": "Python directo en la placa. Ctrl+C para el programa, Ctrl+] sale",
+      "type": "process",
+      "command": "${command:python.interpreterPath}",
+      "args": ["-m", "mpremote", "repl"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Ver archivos de la placa",
+      "type": "process",
+      "command": "${command:python.interpreterPath}",
+      "args": ["-m", "mpremote", "ls"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Huevo nuevo",
+      "detail": "Borra bicho.json de la placa",
+      "type": "process",
+      "command": "${command:python.interpreterPath}",
+      "args": ["-m", "mpremote", "rm", ":bicho.json"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Ver placas conectadas",
+      "type": "process",
+      "command": "${command:python.interpreterPath}",
+      "args": ["-m", "mpremote", "devs"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Pruebas en la PC",
+      "detail": "Prueba la logica sin placa",
+      "type": "process",
+      "command": "${command:python.interpreterPath}",
+      "args": ["-m", "unittest", "discover", "-s", "tests"],
+      "group": "test",
+      "problemMatcher": []
+    }
+  ]
+}

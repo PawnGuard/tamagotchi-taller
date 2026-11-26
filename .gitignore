@@ -6,3 +6,4 @@ ESP32_GENERIC_*.bin
 src/apartados/*_cuadros.bin
 *.mp4
 *.mov
+.venv/

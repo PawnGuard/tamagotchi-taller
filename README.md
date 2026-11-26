@@ -50,6 +50,9 @@ git clone https://github.com/PawnGuard/tamagotchi-taller.git
 En Linux, si dice que no tienes permiso para el puerto:
 `sudo usermod -aG dialout $USER` y cierra sesión.
 
+¿Prefieres VS Code? Sigue [VSCODE.md](VSCODE.md) en lugar de esta sección y la
+siguiente.
+
 ## Subir el código
 
 1. Abre **Ver → Archivos** (*View → Files*).
@@ -130,10 +133,11 @@ src/                 el código que va a la placa
 └── prueba.py        autodiagnóstico del hardware
 
 tests/               pruebas en la PC, sin placa
-herramientas/        convertir un video para la pantalla
+herramientas/        convertir un video y subir el código sin Thonny
 autoarranque/        main.py para que arranque solo
 docs/                cableado
 subir.sh, flashear.sh  scripts para el staff (Linux/macOS, con mpremote)
+.vscode/             tareas para quien use VS Code (ver VSCODE.md)
 ```
 
 ## Pruebas en la PC
