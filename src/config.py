@@ -31,6 +31,9 @@ BOTONES = (
 
 # --- Piezo ------------------------------------------------------------------
 PIN_PIEZO = 7          # None = sin sonido
+VOLUMEN = 50           # 0 a 50: es el % del ciclo de trabajo del PWM. 50 es lo mas fuerte
+OCTAVA = 1             # sube todas las melodias: 1 = el doble de agudo. Nuestro
+                       # piezo de 15 mm suena mas fuerte cerca de 1000 y 3000 Hz
 
 # --- Radio para los duelos (ESP-NOW) ---------------------------------------
 CANAL = 1              # todos los bichitos del salon en el mismo canal

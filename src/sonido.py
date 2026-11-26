@@ -10,18 +10,24 @@
 from time import ticks_ms, ticks_diff, ticks_add
 import config
 
-# (frecuencia en Hz, duracion en ms). Frecuencia 0 = silencio.
+# (frecuencia en Hz, duracion en ms). Frecuencia 0 = silencio. Al tocar se
+# multiplican por 2 ** config.OCTAVA (con OCTAVA = 1, comer suena a 1000 Hz).
 MELODIAS = {
     "nacer":  ((523, 120), (659, 120), (784, 220)),
-    "comer":  ((880, 70),),
+    "comer":  ((500, 70),),
     "curar":  ((659, 80), (523, 80), (659, 140)),
-    "alerta": ((1200, 90), (0, 70), (1200, 90)),
+    "alerta": ((1500, 90), (0, 70), (1500, 90)),
     "muerte": ((392, 220), (330, 220), (262, 420)),
     "reto":   ((988, 60), (0, 40), (988, 60), (1319, 140)),
     "ganar":  ((523, 90), (659, 90), (784, 90), (1047, 240)),
     "perder": ((392, 160), (370, 160), (349, 300)),
-    "tic":    ((1760, 25),),
+    "tic":    ((1500, 25),),
 }
+
+# Una onda cuadrada empuja el piezo con mas fuerza cuando pasa la mitad del
+# tiempo prendida (50 %). Mas de 50 vuelve a bajar el volumen.
+_DUTY = 65535 * min(max(config.VOLUMEN, 0), 50) // 100
+_MULT = 2 ** config.OCTAVA
 
 ultima = None
 _pwm = None
@@ -51,8 +57,8 @@ def atender():
     if _fila:
         freq, ms = _fila.pop(0)
         if freq:
-            _pwm.freq(freq)
-            _pwm.duty_u16(20000)
+            _pwm.freq(int(freq * _MULT))
+            _pwm.duty_u16(_DUTY)
         else:
             _pwm.duty_u16(0)
         _hasta = ticks_add(ticks_ms(), ms)
