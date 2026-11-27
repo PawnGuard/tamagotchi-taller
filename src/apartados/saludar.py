@@ -1,48 +1,45 @@
-# saludar.py — EJERCICIO 1 del taller.
-#
-# Al elegir SALUDAR el bichito saluda: sale un texto abajo, pone cara feliz
-# y se alegra un poco. Con A cambias el saludo. Si saludas mucho rato, se cansa.
-# Sales con C.
+# wifi_rickroll.py — Broma inofensiva: un AP real con nombre cambiante
 import dibujo
-import sonido
+import network
+import time
 
-NOMBRE = "SALUDAR"
+NOMBRE = "RICKROLL"
 
-# Saludos entre los que rota la tecla A.
-SALUDOS = ("Saludando", "Hola!", "Que onda!", "Buenas!")
+_estado = {"ap": None, "indice": 0, "tiempo": 0}
 
-ALEGRIA = 10          # cuanto sube la felicidad al empezar a saludar
-CANSA_CADA_MS = 3000  # cada 3 s de saludar...
-CANSANCIO = 2         # ...baja 2 de energia (se cansa si te pasas de rato)
-
-_saludo = 0           # cual saludo se muestra ahora
-_acumulado = 0        # ms saludando, para contar el cansancio
-
+# Fragmentos de la letra (cada uno será el SSID)
+_LETRA = [
+    "Never gonna give you up",
+    "Never gonna let you down",
+    "Never gonna run around",
+    "And desert you",
+]
 
 def empezar(bicho):
-    global _saludo, _acumulado
-    _saludo = 0
-    _acumulado = 0
-    sonido.tocar("nacer")                                  # un sonidito al saludar
-    bicho.felicidad = min(100, bicho.felicidad + ALEGRIA)  # saludar alegra
-
-
-def tecla(bicho, t):
-    global _saludo
-    if t == "a":
-        _saludo = (_saludo + 1) % len(SALUDOS)   # A cambia el saludo
-        return False                             # no salimos, seguimos saludando
-    return t == "c"                              # solo C sale
-
+    ap = network.WLAN(network.AP_IF)
+    ap.active(True)
+    ap.config(essid=_LETRA[0], password="12345678")  # WPA2, mínimo 8 caracteres
+    _estado["ap"] = ap
+    _estado["indice"] = 0
+    _estado["tiempo"] = 0
 
 def paso(bicho, ms):
-    """Se llama en cada vuelta mientras saludas. Si saludas mucho, cansa."""
-    global _acumulado
-    _acumulado += ms
-    if _acumulado >= CANSA_CADA_MS:
-        _acumulado -= CANSA_CADA_MS
-        bicho.energia = max(0, bicho.energia - CANSANCIO)
+    _estado["tiempo"] += ms
+    if _estado["tiempo"] >= 200:          # cambia cada 20 s
+        _estado["tiempo"] = 0
+        _estado["indice"] = (_estado["indice"] + 1) % len(_LETRA)
+        try:
+            _estado["ap"].config(essid=_LETRA[_estado["indice"]])
+        except Exception:
+            pass
 
+def tecla(bicho, t):
+    if t.lower() == "c":
+        if _estado["ap"] is not None:
+            _estado["ap"].active(False)
+        return True
+    return False
 
 def dibujar(fb, bicho):
-    dibujo.casa(fb, bicho, SALUDOS[_saludo])     # dibuja la escena + el saludo
+    texto = _LETRA[_estado["indice"]][:14]  # recortado para pantalla
+    dibujo.casa(fb, bicho, texto)

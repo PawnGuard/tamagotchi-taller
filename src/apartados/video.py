@@ -25,25 +25,43 @@ DO6 = 1047
 _ = 0                           # silencio
 
 # Duraciones: el BPM dice cuantas NEGRAS caben en un minuto.
-BPM = 120
-NEGRA = 60000 // BPM            # 500 ms a 120 BPM
+BPM = 113                       # Rickroll original ~113 BPM
+NEGRA = 60000 // BPM
 BLANCA = NEGRA * 2
 CORCHEA = NEGRA // 2
 SEMICORCHEA = NEGRA // 4
+NEGRA_PUNTILLO = int(NEGRA * 1.5)
+CORCHEA_PUNTILLO = int(CORCHEA * 1.5)
 
-# Tu melodia: (nota, duracion). Este ejemplo dura 4 tiempos x 4 = 8 segundos.
-# Truco: si repites la misma nota, mete un silencio cortito entre las dos,
-# por ejemplo (MI5, CORCHEA - 30), (_, 30), (MI5, CORCHEA), o se oyen pegadas.
+# Melodia principal de "Never Gonna Give You Up" (Rick Astley - estribillo)
 MELODIA = (
-    (DO5, CORCHEA), (MI5, CORCHEA), (SOL5, CORCHEA), (MI5, CORCHEA),
-    (FA5, NEGRA), (RE5, NEGRA),
-    (SOL4, CORCHEA), (SI4, CORCHEA), (RE5, CORCHEA), (SI4, CORCHEA),
-    (DO5, BLANCA),
-    (MI5, CORCHEA), (SOL5, CORCHEA), (DO6, CORCHEA), (SOL5, CORCHEA),
-    (LA5, NEGRA), (FA5, NEGRA),
-    (SOL5, CORCHEA), (FA5, CORCHEA), (MI5, CORCHEA), (RE5, CORCHEA),
-    (DO5, BLANCA),
+    # Frase 1 ("Never gonna give you up")
+    (DO5, SEMICORCHEA), (RE5, SEMICORCHEA), (FA5, SEMICORCHEA), (RE5, SEMICORCHEA),
+    (LA5, CORCHEA_PUNTILLO), (LA5, CORCHEA_PUNTILLO), (SOL5, NEGRA_PUNTILLO),
+
+    # Frase 2 ("Never gonna let you down")
+    (DO5, SEMICORCHEA), (RE5, SEMICORCHEA), (FA5, SEMICORCHEA), (RE5, SEMICORCHEA),
+    (SOL5, CORCHEA_PUNTILLO), (SOL5, CORCHEA_PUNTILLO), (FA5, CORCHEA_PUNTILLO), (MI5, SEMICORCHEA), (RE5, CORCHEA),
+
+    # Frase 3 ("Never gonna run around and desert you")
+    (DO5, SEMICORCHEA), (RE5, SEMICORCHEA), (FA5, SEMICORCHEA), (RE5, SEMICORCHEA),
+    (FA5, NEGRA), (SOL5, CORCHEA), (MI5, CORCHEA_PUNTILLO), (RE5, SEMICORCHEA), (DO5, CORCHEA),
+    (DO5, CORCHEA), (SOL5, NEGRA), (FA5, BLANCA),
+
+    # Frase 4 ("Never gonna make you cry")
+    (DO5, SEMICORCHEA), (RE5, SEMICORCHEA), (FA5, SEMICORCHEA), (RE5, SEMICORCHEA),
+    (LA5, CORCHEA_PUNTILLO), (LA5, CORCHEA_PUNTILLO), (SOL5, NEGRA_PUNTILLO),
+
+    # Frase 5 ("Never gonna say goodbye")
+    (DO5, SEMICORCHEA), (RE5, SEMICORCHEA), (FA5, SEMICORCHEA), (RE5, SEMICORCHEA),
+    (DO6, NEGRA), (MI5, CORCHEA), (FA5, CORCHEA_PUNTILLO), (MI5, SEMICORCHEA), (RE5, CORCHEA),
+
+    # Frase 6 ("Never gonna tell a lie and hurt you")
+    (DO5, SEMICORCHEA), (RE5, SEMICORCHEA), (FA5, SEMICORCHEA), (RE5, SEMICORCHEA),
+    (FA5, NEGRA), (SOL5, CORCHEA), (MI5, CORCHEA_PUNTILLO), (RE5, SEMICORCHEA), (DO5, CORCHEA),
+    (DO5, CORCHEA), (SOL5, NEGRA), (FA5, BLANCA),
 )
+
 sonido.MELODIAS["video"] = MELODIA
 
 # --- El video ----------------------------------------------------------------------
