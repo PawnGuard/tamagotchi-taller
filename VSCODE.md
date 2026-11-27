@@ -41,6 +41,13 @@ python -m mpremote version
 
 Si sale un número de versión, ya quedó.
 
+Por si en el taller tu placa necesita MicroPython de nuevo, baja también el
+firmware ahora que tienes internet (no toca la placa):
+
+```bash
+python herramientas/flashear.py --descargar
+```
+
 ## 4. Sube el código y juega
 
 **Cierra Thonny** si lo tienes abierto: solo un programa a la vez puede usar
@@ -69,6 +76,7 @@ Están en **Terminal → Run Task…**:
 | Ver archivos de la placa | Lista lo que hay guardado en la placa |
 | Huevo nuevo | Borra `bicho.json` para empezar otra mascota |
 | Ver placas conectadas | Muestra los puertos que ve tu computadora |
+| Flashear MicroPython | Borra la placa, le graba MicroPython y sube el código |
 | Pruebas en la PC | Prueba la lógica sin placa |
 
 Si prefieres escribir los comandos, en la terminal de VS Code funcionan igual:
@@ -81,12 +89,27 @@ python herramientas/subir.py
 python -m mpremote run src/tama.py
 ```
 
+## Si tu placa no tiene MicroPython
+
+Pasa si la placa viene sin firmware o si le subiste un programa de Arduino:
+`subir.py` dice que la placa no contesta como MicroPython. Con la placa
+conectada, usa la tarea **Flashear MicroPython** o:
+
+```bash
+python herramientas/flashear.py
+```
+
+Busca la placa sola, te pregunta antes de borrar, graba MicroPython 1.29.0
+(lo descarga si no lo tienes) y sube el código. **Borra todo lo que tenga la
+placa**, tu mascota incluida. Si no logra grabar, te pide apretar BOOT al
+conectarla y lo vuelve a intentar.
+
 ## Si algo falla
 
 | Síntoma | Solución |
 |---|---|
 | `failed to access` o `could not enter raw repl` | Thonny u otro monitor serie tiene el puerto: ciérralo. Si le diste un puerto a mano, revisa que sea el correcto. |
-| Se queda esperando y no dice nada, o dice `no contesta como MicroPython` | La placa no tiene MicroPython o tiene otro programa (por ejemplo, de Arduino). Desconéctala y conéctala; si sigue igual, pide al staff que la flashee. |
+| Se queda esperando y no dice nada, o dice `no contesta como MicroPython` | La placa no tiene MicroPython o tiene otro programa (por ejemplo, de Arduino). Desconéctala y conéctala; si sigue igual, flashéala con `python herramientas/flashear.py`. |
 | `no device found` | Revisa el cable (debe ser de datos) y usa **Ver placas conectadas**. |
 | Tienes varias placas o la elige mal | `python herramientas/subir.py COM5` (o `/dev/ttyACM0`, `/dev/cu.usbmodem…`). Para jugar: `python -m mpremote connect COM5 run src/tama.py` |
 | Linux: `Permission denied` en el puerto | `sudo usermod -aG dialout $USER` y cierra sesión. |

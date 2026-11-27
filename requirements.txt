@@ -1,4 +1,5 @@
 # Solo para quien use VS Code (o la terminal) en vez de Thonny.
 mpremote>=1.24
+esptool>=5.0          # para flashear MicroPython (herramientas/flashear.py)
 # Autocompletado de machine, network, espnow... para MicroPython 1.29 en ESP32-C3.
 micropython-esp32-esp32_generic_c3-stubs==1.29.0.post1

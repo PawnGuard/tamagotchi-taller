@@ -57,6 +57,14 @@
       "problemMatcher": []
     },
     {
+      "label": "Flashear MicroPython",
+      "detail": "Borra la placa, graba MicroPython y sube el codigo",
+      "type": "process",
+      "command": "${command:python.interpreterPath}",
+      "args": ["herramientas/flashear.py"],
+      "problemMatcher": []
+    },
+    {
       "label": "Pruebas en la PC",
       "detail": "Prueba la logica sin placa",
       "type": "process",

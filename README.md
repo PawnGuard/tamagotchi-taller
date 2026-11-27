@@ -133,7 +133,7 @@ src/                 el código que va a la placa
 └── prueba.py        autodiagnóstico del hardware
 
 tests/               pruebas en la PC, sin placa
-herramientas/        convertir un video y subir el código sin Thonny
+herramientas/        convertir un video, subir el código y flashear sin Thonny
 autoarranque/        main.py para que arranque solo
 docs/                cableado
 subir.sh, flashear.sh  scripts para el staff (Linux/macOS, con mpremote)
@@ -152,12 +152,15 @@ python3 -m unittest discover -s tests
 ## Para el staff: preparar placas nuevas
 
 Las placas vienen **sin firmware**. Con `esptool` y `mpremote`
-(`pipx install esptool mpremote`), este script descarga MicroPython v1.29.0,
-lo graba y sube el proyecto:
+(`python -m pip install -r requirements.txt`), este script descarga
+MicroPython v1.29.0, comprueba que el archivo sea el oficial, lo graba y sube
+el proyecto. Funciona en Windows, macOS y Linux:
 
 ```bash
-./flashear.sh
+python herramientas/flashear.py
 ```
+
+En Linux y macOS también está `./flashear.sh`, que hace lo mismo.
 
 Después, para volver a subir el código: `./subir.sh`.
 
