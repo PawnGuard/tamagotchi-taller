@@ -47,7 +47,7 @@ def main():
         sys.exit("La placa esta conectada pero no contesta como MicroPython.\n"
                  "- Si tiene un programa corriendo, desconectala y vuelve a conectarla.\n"
                  "- Si nunca le grabaste MicroPython (o tiene un programa de Arduino),\n"
-                 "  pide al staff que la flashee (flashear.sh).")
+                 "  flasheala con:  python herramientas/flashear.py")
     if prueba.returncode != 0:
         sys.exit(prueba.returncode)
 
